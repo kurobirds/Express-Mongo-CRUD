@@ -1,0 +1,80 @@
+<main role="main">
+	<section class="jumbotron text-center">
+		<div class="container">
+			<h1 class="jumbotron-heading">Celebrities</h1>
+			<p class="lead text-muted">This is album of my favor anime character.</p>
+			<p>
+				<button type="button" class="btn btn-primary my-2" data-toggle="modal" data-target="#createModal">
+					Create new character
+				</button>
+			</p>
+		</div>
+	</section>
+
+	<!--Model-->
+	<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalTitle">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<form>
+						<div class="form-group">
+							<label for="characterTitle">Title</label>
+							<input class="form-control" id="characterTitle" rows="1" name="title"></input>
+						</div>
+						<div class="form-group">
+							<label for="characterDescription">Description</label>
+							<textarea class="form-control" id="characterDescription" rows="3" name="description"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="characterImage">Image URL</label>
+							<input class="form-control" id="characterImage" rows="1" name="images"></input>
+						</div>
+					</form>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="createBtn">Create</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="album py-5 bg-light" data-spy="scroll" data-target=".navbar" data-offset="0">
+		<div class="container">
+			<div class="row">
+				{{#each docs}}
+					<div class="col-md-4">
+						<div class="card mb-4 box-shadow">
+							<img class="card-img-top"
+								{{#if this.images}}
+								 src="{{this.images}}"
+								{{else}}
+								 data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail"
+								{{/if}}
+								 alt="Card image cap" height="225" width="348">
+							<div class="card-body">
+								<h5 class="card-title">{{this.title}}</h5>
+								<p class="card-text">{{this.description}}</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group">
+										<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+										<button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{{/each}}
+			</div>
+		</div>
+	</div>
+</main>
