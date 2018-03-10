@@ -3,13 +3,10 @@
 var model = require('../models/db');
 
 exports.create = (req, res) => {
-	if (!req.body.description) {
-		return res.status(400).send({message: "Celebrities cant be empty"})
-	}
 
 	var celebrities = new model({
 		title: req.body.title || "Untitled Celebrities",
-		description: req.body.description,
+		description: req.body.description || "null description",
 		images: req.body.images || ""
 	});
 
@@ -19,7 +16,7 @@ exports.create = (req, res) => {
 			res.status(500).send({message: "Error when creating celebrities"});
 		}
 		else {
-			res.send({message: "Create Success"});
+			res.send(docs);
 		}
 	})
 };

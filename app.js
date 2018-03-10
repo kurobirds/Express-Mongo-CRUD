@@ -4,11 +4,29 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var index = require('./routes/index');
 var celebrities = require('./routes/celebrities');
 
 var app = express();
+
+
+
+
+//Mongoose
+mongoose.Promise = global.Promise;
+
+// var url = 'mongodb://localhost:27017/akinodb';
+var url = 'mongodb://admin:admin@ds235788.mlab.com:35788/akinodb';
+
+mongoose.connect(url).then(() => {
+	console.log('connection success');
+}).catch(error => {
+	console.log('Connect fail: ', error.stack);
+	process.exit(1);
+});
+
 
 //Handlebars
 const hbs = require('hbs');
