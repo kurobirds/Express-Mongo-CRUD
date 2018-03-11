@@ -6,5 +6,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="@types/mongoose" level="application" />
     <orderEntry type="library" name="@types/handlebars" level="application" />
+    <orderEntry type="library" name="@types/jquery" level="application" />
+    <orderEntry type="library" name="@types/jquery-param" level="application" />
   </component>
 </module>
