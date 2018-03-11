@@ -12,8 +12,6 @@ var celebrities = require('./routes/celebrities');
 var app = express();
 
 
-
-
 //Mongoose
 mongoose.Promise = global.Promise;
 
@@ -33,7 +31,7 @@ const hbs = require('hbs');
 
 hbs.registerPartials(__dirname + '/views/partials');
 hbs.registerHelper('equal', (arg1, arg2, options) => {
-	return(arg1 == arg2) ? options.fn(this) : options.inverse(this);
+	return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });
 
 

@@ -11,7 +11,7 @@
 		</div>
 	</section>
 
-	<!--Create Model-->
+	<!--Create Modal-->
 	<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -23,34 +23,34 @@
 				</div>
 				<div class="modal-body">
 
-					<form>
+					<form id="frmCreate">
 						<div class="form-group">
-							<label for="characterTitle">Title</label>
-							<input class="form-control" id="characterTitle" rows="1" name="title"></input>
+							<label for="createCharTitle">Title</label>
+							<input class="form-control" id="createCharTitle" rows="1" name="title"></input>
 						</div>
 						<div class="form-group">
-							<label for="characterDescription">Description</label>
-							<textarea class="form-control" id="characterDescription" rows="3"
+							<label for="createCharDescription">Description</label>
+							<textarea class="form-control" id="createCharDescription" rows="3"
 									  name="description"></textarea>
 						</div>
 						<div class="form-group">
-							<label for="characterImage">Image URL</label>
-							<input class="form-control" id="characterImage" rows="1" name="images"></input>
+							<label for="createCharImage">Image URL</label>
+							<input class="form-control" id="createCharImage" rows="1" name="images"></input>
 						</div>
 					</form>
 
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" id="createBtn">Create</button>
+					<button type="button" class="btn btn-success" id="btnCreate" form="frmCreate">Create</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
 
-	<!--Yes-No Model-->
-	<div class="modal fade" id="ynModel" tabindex="-1" role="dialog" aria-hidden="true">
+	<!--Yes-No Modal-->
+	<div class="modal fade" id="ynModal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -70,8 +70,46 @@
 		</div>
 	</div>
 
-	<!--Card-->
 
+	<!--Update Modal-->
+	<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalTitle">Update character</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<form id="frmUpdate">
+						<div class="form-group">
+							<label for="updateCharTitle">Title</label>
+							<input class="form-control" id="updateCharTitle" rows="1" name="title"></input>
+						</div>
+						<div class="form-group">
+							<label for="updateCharDescription">Description</label>
+							<textarea class="form-control" id="updateCharDescription" rows="3"
+									  name="description"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="updateCharImage">Image URL</label>
+							<input class="form-control" id="updateCharImage" rows="1" name="images"></input>
+						</div>
+					</form>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-success" id="btnUpdate" form="frmUpdate">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!--Card-->
 	<div class="album py-5 bg-light" data-spy="scroll" data-target=".navbar" data-offset="0">
 		<div class="container">
 			<div class="row">
@@ -90,10 +128,10 @@
 								<p class="card-text">{{this.description}}</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
-										<button type="button" class="btn btn-sm btn-outline-secondary btnCardEdit"
+										<button type="button" class="btn btn-sm btn-outline-primary btnCardEdit"
 												dbID="{{this._id}}">Edit
 										</button>
-										<button type="button" class="btn btn-sm btn-outline-secondary btnCardDelete"
+										<button type="button" class="btn btn-sm btn-outline-danger btnCardDelete"
 												dbID="{{this._id}}">Delete
 										</button>
 									</div>
