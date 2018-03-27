@@ -1,12 +1,12 @@
 'use strict';
 
+
+
+
 //Main
 $(document).ready(function () {
 
-	async:false;
-
 	//validate Image URL
-
 	function imageExists(url, callback) {
 		var img = new Image();
 		img.onload = function () {
@@ -35,6 +35,7 @@ $(document).ready(function () {
 	}
 
 
+	// Create event
 	$(document).on('click', '#btnCreate', function () {
 		$.ajax({
 			url: "/api",
@@ -42,26 +43,14 @@ $(document).ready(function () {
 			type: "POST",
 			dataType: "json",
 			success: function (data) {
-				var newContent = '<div class="col-md-4 card-loop" card-id="' + data._id + '">\n' +
-						'\t\t\t\t\t\t<div class="card mb-4 box-shadow">\n' +
-						'\t\t\t\t\t\t\t<img class="card-img-top"\n' +
-						'\t\t\t\t\t\t\t\t alt="Card image cap" height="225" width="348">\n' +
-						'\t\t\t\t\t\t\t<div class="card-body">\n' +
-						'\t\t\t\t\t\t\t\t<h5 class="card-title">' + data.title + '</h5>\n' +
-						'\t\t\t\t\t\t\t\t<p class="card-text">' + data.description + '</p>\n' +
-						'\t\t\t\t\t\t\t\t<div class="d-flex justify-content-between align-items-center">\n' +
-						'\t\t\t\t\t\t\t\t\t<div class="btn-group">\n' +
-						'\t\t\t\t\t\t\t\t\t\t<button type="button" class="btn btn-sm btn-outline-primary btnCardEdit"\n' +
-						'\t\t\t\t\t\t\t\t\t\t\t\tdbID="' + data._id + '">Edit\n' +
-						'\t\t\t\t\t\t\t\t\t\t</button>\n' +
-						'\t\t\t\t\t\t\t\t\t\t<button type="button" class="btn btn-sm btn-outline-danger btnCardDelete"\n' +
-						'\t\t\t\t\t\t\t\t\t\t\t\tdbID="' + data._id + '">Delete\n' +
-						'\t\t\t\t\t\t\t\t\t\t</button>\n' +
-						'\t\t\t\t\t\t\t\t\t</div>\n' +
-						'\t\t\t\t\t\t\t\t</div>\n' +
-						'\t\t\t\t\t\t\t</div>\n' +
-						'\t\t\t\t\t\t</div>\n' +
-						'\t\t\t\t\t</div>';
+				// get the template
+				var source = $("#template-hbs").html();
+
+				// compile template
+				var template  = Handlebars.compile(source);
+
+				// apply template
+				var newContent = template(data);
 
 				alert(JSON.stringify("Create Success!"));
 				$("#createModal").modal('toggle');
@@ -76,7 +65,7 @@ $(document).ready(function () {
 	});
 
 
-	//Update event
+	// Update event
 	$(document).on('click', '.btnCardEdit', function () {
 		var id = $(this).attr("dbID");
 		var url = '/api/' + id;
@@ -123,11 +112,10 @@ $(document).ready(function () {
 	});
 
 
-	//Delete event
+	// Delete event
 	$(document).on('click', '.btnCardDelete', function () {
 
 		var dbID = $(this).attr("dbID");
-		var delURL = '/api/' + dbID;
 
 		$("#btnYNDelete").attr("dbID", dbID);
 

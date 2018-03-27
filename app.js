@@ -17,6 +17,7 @@ mongoose.Promise = global.Promise;
 
 // var url = 'mongodb://localhost:27017/akinodb';
 var url = 'mongodb://admin:admin@ds235788.mlab.com:35788/akinodb';
+// var url = 'mongodb://akino:ww8YOSC4pQBhA6Px@cluster0-shard-00-00-y3q9n.mongodb.net:27017,cluster0-shard-00-01-y3q9n.mongodb.net:27017,cluster0-shard-00-02-y3q9n.mongodb.net:27017/akinodb?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin';
 
 mongoose.connect(url).then(() => {
 	console.log('connection success');
@@ -33,6 +34,10 @@ hbs.registerPartials(__dirname + '/views/partials');
 hbs.registerHelper('equal', (arg1, arg2, options) => {
 	return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });
+hbs.registerHelper('raw-helper', function(options) {
+	return options.fn();
+});
+
 
 
 // view engine setup

@@ -2,11 +2,17 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/node_modules" />
+    </content>
+    <content url="file://$MODULE_DIR$/node_modules" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="@types/mongoose" level="application" />
     <orderEntry type="library" name="@types/handlebars" level="application" />
     <orderEntry type="library" name="@types/jquery" level="application" />
     <orderEntry type="library" name="@types/jquery-param" level="application" />
+    <orderEntry type="library" name="@types/hbs" level="application" />
+    <orderEntry type="library" name="@types/express" level="application" />
   </component>
 </module>

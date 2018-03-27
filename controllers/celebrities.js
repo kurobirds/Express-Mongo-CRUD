@@ -65,8 +65,8 @@ exports.update = (req, res, next) => {
 			return res.status(404).send({message: "Celebrities not found with id" + req.params.id + req.params.id});
 		}
 
-		docs.title = req.body.title;
-		docs.description = req.body.description;
+		docs.title = req.body.title || "Untitled Celebrities";
+		docs.description = req.body.description || "Null";
 		docs.images = req.body.images;
 
 		docs.save((err, docs) => {
