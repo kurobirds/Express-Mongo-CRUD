@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+const expressGraphQL = require("express-graphql");
 
 var index = require('./routes/index');
 var celebrities = require('./routes/celebrities');
@@ -51,6 +52,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	next();
+});
+
+// GraphQL
+const schema = require('./graphql/types/character');
+app.use('/graphql', expressGraphQL({
+	schema,
+	graphiql: true
+}));
+
 
 app.use('/', index);
 app.use('/api', celebrities);

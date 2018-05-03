@@ -4,6 +4,8 @@ var model = require('../models/db');
 
 exports.create = (req, res) => {
 
+	console.log(req.body);
+
 	var celebrities = new model({
 		title: req.body.title || "Untitled Celebrities",
 		description: req.body.description || "null description",

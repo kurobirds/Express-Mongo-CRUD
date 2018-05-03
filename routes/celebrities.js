@@ -4,7 +4,6 @@ var router = express.Router();
 //Require controller
 var controller = require('../controllers/celebrities');
 
-
 //Create
 router.post('/', controller.create);
 
