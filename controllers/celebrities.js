@@ -1,104 +1,97 @@
-'use strict';
+"use strict";
 
-var model = require('../models/db');
+var model = require("../models/db");
 
 exports.create = (req, res) => {
-
 	console.log(req.body);
 
 	var celebrities = new model({
 		title: req.body.title || "Untitled Celebrities",
 		description: req.body.description || "null description",
-		images: req.body.images || ""
+		images: req.body.images || "",
 	});
 
-	celebrities.save((err, docs) => {
-		if (err) {
-			console.log(err);
-			res.status(500).send({message: "Error when creating celebrities"});
-		}
-		else {
-			res.send(docs);
-		}
-	})
+	celebrities.save().then(doc => {
+		res.send(doc);
+	}).catch(err => {
+		res.status(500).send({ message: "Error when creating celebrities" });
+	});
 };
 
 exports.findAll = (req, res) => {
-	model.find((err, docs) => {
-		if (err) {
-			console.log(err);
-			res.status(500).send({message: "Error when finding celebrities"});
-		}
-		else {
-			res.send(docs);
-		}
-	});
+	model.find().then(docs => {
+		res.send(docs);
+	}).catch(err => {
+		res.status(500).send({ message: "Error when finding celebrities" });
+	})
 };
 
 exports.findOne = (req, res) => {
-	model.findById(req.params.id, (err, docs) => {
-		if (err) {
-			console.log(err);
-			if (err.kind === 'ObejectId') {
-				res.status(404).send({message: "Celebrities not found with id" + req.params.id});
-			}
-			res.status(500).send({message: "Error when finding celebrities"});
+	model.findById(req.params.id).then(doc => {
+		if (!doc) {
+			return res.status(404).send({
+				message: `Celebrities not found with id ${req.params.id}`
+			});
 		}
-
-		if (!docs) {
-			return res.status(404).send({message: "Celebrities not found with id" + req.params.id});
+		res.send(doc)
+	}).catch(err => {
+		if (err.kind === "ObjectId") {
+			return res.status(404).send({
+				message: `Celebrities not found with id ${req.params.id}`
+			});
 		}
-
-		res.send(docs);
+		return res.status(500).send({ message: "Error when finding celebrities" });
 	});
 };
 
-exports.update = (req, res, next) => {
-	model.findById(req.params.id, (err, docs) => {
-		if (err) {
-			console.log(err);
-			if (err.kind === 'ObejectId') {
-				res.status(404).send({message: "Celebrities not found with id" + req.params.id});
-			}
-			res.status(500).send({message: "Error when finding celebrities"});
+exports.update = (req, res) => {
+	model.findByIdAndUpdate(req.params.id, {
+		title: req.body.title || "Untitled Celebrities",
+		description: req.body.description || "Null",
+		images: req.body.images
+	}, {new: true})
+	.then(doc => {
+		if (!doc) {
+			return res.status(404).send({
+				message: `Celebrities not found with id ${req.params.id}`
+			});
 		}
-
-		if (!docs) {
-			return res.status(404).send({message: "Celebrities not found with id" + req.params.id + req.params.id});
+		res.send(doc)
+	}).catch(err => {
+		if (err.kind === "ObjectId") {
+			return res.status(404).send({
+				message: `Celebrities not found with id ${req.params.id}`
+			});
 		}
+		return res.status(500).send({
+			message: "Error when finding celebrities"
+		});
+	})
+}
 
-		docs.title = req.body.title || "Untitled Celebrities";
-		docs.description = req.body.description || "Null";
-		docs.images = req.body.images;
-
-		docs.save((err, docs) => {
-			(err) ? res.status(500).send({message: "Could not update celebrities with id" + req.params.id}) : res.send(docs);
-		})
+exports.delete = (req, res) => {
+	model.findByIdAndRemove(req.params.id).then(doc => {
+		if (!doc) {
+			return res.status(404).send({
+				message: `Celebrities not found with id ${req.params.id}`
+			});
+		}
+		res.send({ message: "Celebrities deleted successfully!" });
+	}).catch(err => {
+		if (err.kind === "ObjectId") {
+			return res.status(404).send({
+				message: `Celebrities not found with id ${req.params.id}`
+			});
+		}
+		return res.status(500).send({
+			message: `Error when delete celebrities with id ${req.params.id}`,
+		});
 	});
 };
-
-exports.delete = (req, res, next) => {
-	model.findByIdAndRemove(req.params.id, (err, docs) => {
-		if (err) {
-			console.log(err);
-			if (err.kind === 'ObejectId') {
-				res.status(404).send({message: "Celebrities not found with id" + req.params.id});
-			}
-			res.status(500).send({message: "Error when delete celebrities with id" + req.params.id});
-		}
-
-		if (!docs) {
-			return res.status(404).send({message: "Celebrities not found with id" + req.params.id});
-		}
-
-		res.send({message: "Celebrities deleted successfully!"});
-	});
-};
-
 
 exports.home = (req, res, next) => {
 	model.find((err, docs) => {
 		if (err) return next(err);
-		res.render('index', {title: 'Akino Page', docs});
+		res.render("index", { title: "Akino Page", docs });
 	});
 };

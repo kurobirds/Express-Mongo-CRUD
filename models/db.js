@@ -1,9 +1,15 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
-var schema = mongoose.Schema({
+var Schema = mongoose.Schema;
+
+var animeCharacterSchema = new Schema({
 	title: String,
 	description: String,
-	images: String
+	images: String,
 });
 
-module.exports = mongoose.model('',schema, 'animeCharacter');
+module.exports = mongoose.model(
+	"animeCharacters",
+	animeCharacterSchema,
+	"animeCharacter"
+);
